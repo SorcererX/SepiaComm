@@ -1,0 +1,10 @@
+namespace comm2tester_msgs;
+
+table Test
+{
+   random_string:string;
+   seq_no:ulong;
+   time:ulong;
+}
+
+root_type Test;

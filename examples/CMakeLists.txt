@@ -1,0 +1,5 @@
+if(BUILD_EXAMPLES)
+    project( examples )
+    include_directories( "${CMAKE_SOURCE_DIR}/defs" )
+    add_subdirectory( comm2tester )
+endif(BUILD_EXAMPLES)

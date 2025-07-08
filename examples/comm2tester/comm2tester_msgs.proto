@@ -1,0 +1,8 @@
+package comm2tester_msgs;
+//option optimize_for = LITE_RUNTIME;
+
+message ProtoTest {
+    optional uint64 time = 1;
+    optional uint32 seq_no = 2;
+}
+
