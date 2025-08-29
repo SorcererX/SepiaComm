@@ -216,4 +216,16 @@ namespace sepia::comm2
         }
         return -1;
     }
+
+    bool Receiver::getHaveMessagesAvailable()
+    {
+        if( !m_socket )
+        {
+            return false;
+        }
+
+        auto events = m_socket->get( zmq::sockopt::events );
+
+        return events & ZMQ_POLLIN;
+    }
 }
