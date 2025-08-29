@@ -26,6 +26,7 @@ set( PUBLIC_INCLUDES
     ${CMAKE_SOURCE_DIR}/defs/sepia/comm2/messagesender.h
     ${CMAKE_SOURCE_DIR}/defs/sepia/comm2/scopedmessagesender.h
     ${CMAKE_SOURCE_DIR}/defs/sepia/comm2/global.h
+    ${CMAKE_SOURCE_DIR}/defs/sepia/comm2/qtmessagereceiver.h
 )
 
 add_library( ${PROJECT_NAME} ${SRC_LIST} ${HEADER_FILES} ${PROTO_SRCS} ${PROTO_HDRS}  )
