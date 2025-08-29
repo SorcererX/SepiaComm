@@ -207,4 +207,13 @@ namespace sepia::comm2
         }
         return true;
     }
+
+    int Receiver::getSocketFileDescriptor()
+    {
+        if( m_socket )
+        {
+            return m_socket->get( zmq::sockopt::fd );
+        }
+        return -1;
+    }
 }

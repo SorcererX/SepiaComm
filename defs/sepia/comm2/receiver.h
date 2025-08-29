@@ -26,6 +26,7 @@ namespace sepia::comm2
         bool exec();
         bool addObserver( ObserverAll* a_observer );
         bool removeObserver( ObserverAll* a_observer );
+        int getSocketFileDescriptor();
 
     protected:
         bool distribute( const std::string& a_name, const char* a_data, size_t a_size );
