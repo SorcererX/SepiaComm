@@ -17,6 +17,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 find_package(FlatBuffers REQUIRED)
 
 find_package(cppzmq REQUIRED)
+find_package(yaml-cpp REQUIRED)
 set( PUBLIC_INCLUDES
     ${CMAKE_SOURCE_DIR}/defs/sepia/comm2/receiver.h
     ${CMAKE_SOURCE_DIR}/defs/sepia/comm2/dispatcher.h
@@ -42,6 +43,7 @@ install( FILES ${PUBLIC_INCLUDES} DESTINATION include/sepia/comm2 )
 target_link_libraries(${PROJECT_NAME} ${PROTOBUF_LIBRARIES})
 target_link_libraries( ${PROJECT_NAME} ${cppzmq_LIBRARY} ${ZeroMQ_LIBRARIES} )
 target_link_libraries( ${PROJECT_NAME} ${FLATBUFFERS_LIBRARIES})
+target_link_libraries( ${PROJECT_NAME} yaml-cpp )
 target_link_libraries( ${PROJECT_NAME} -lrt )
 
 add_subdirectory(examples)

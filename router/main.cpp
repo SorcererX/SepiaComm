@@ -1,17 +1,21 @@
+#include <sepia/comm2/global.h>
+
 #include <iostream>
 #include "messagelogger.h"
 #include <zmq.hpp>
 
 int main( int argc, char* argv[] )
 {
-    zmq::context_t context( 3 );
+    const auto config = sepia::comm2::Global::loadConfiguration();
+
+    zmq::context_t context( config.contextThreads );
     zmq::socket_t publisher( context, ZMQ_XPUB );
     zmq::socket_t subscriber( context, ZMQ_XSUB );
     zmq::socket_t capture( context, ZMQ_PUSH );
 
     capture.bind( "inproc://capture" );
-    publisher.bind( "tcp://*:31339" );
-    subscriber.bind( "tcp://*:31340" );
+    publisher.bind( config.publisherUrl );
+    subscriber.bind( config.subscriberUrl );
 
     MessageLogger logger( &context );
     logger.start();
