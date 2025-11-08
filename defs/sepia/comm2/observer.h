@@ -12,7 +12,11 @@ namespace sepia
         class Observer : public ObserverBase
         {
         public:
-            ~Observer();
+            virtual ~Observer();
+            Observer( const Observer& ) = delete;
+            Observer( const Observer&& ) = delete;
+            Observer& operator=( const Observer& ) = delete;
+            Observer&& operator=( const Observer&& ) = delete;
 
         protected:
             Observer();
@@ -35,6 +39,10 @@ namespace sepia
                 m_msg->ParseFromArray( a_buffer, static_cast< int >( a_size ) );
                 receive( *m_msg );
             }
+            Observer( const Observer& ) = delete;
+            Observer( const Observer&& ) = delete;
+            Observer& operator=( const Observer& ) = delete;
+            Observer&& operator=( const Observer&& ) = delete;
 
         protected:
             Observer()
@@ -53,7 +61,7 @@ namespace sepia
         class Observer< MessageName, typename std::enable_if< std::is_base_of< flatbuffers::NativeTable, MessageName >::value >::type > : public ObserverBase
         {
         public:
-            ~Observer()
+            virtual ~Observer()
             {
                 removeObserver( MessageName::GetFullyQualifiedName(), this );
             }
@@ -63,6 +71,11 @@ namespace sepia
                 std::unique_ptr< MessageName > message = std::unique_ptr< MessageName >( flatbuffers::GetRoot< typename MessageName::TableType >( a_buffer )->UnPack( nullptr ) );
                 receive( *message );
             }
+
+            Observer( const Observer& ) = delete;
+            Observer( const Observer&& ) = delete;
+            Observer& operator=( const Observer& ) = delete;
+            Observer&& operator=( const Observer&& ) = delete;
 
         protected:
             Observer()

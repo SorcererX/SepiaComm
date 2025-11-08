@@ -36,6 +36,7 @@ namespace sepia::comm2
     private:
         sepia::comm2::Receiver m_receiver;
         QSocketNotifier* m_notifier;
+        Q_DISABLE_COPY_MOVE( QtMessageReceiver );
     };
 }
 

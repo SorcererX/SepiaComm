@@ -16,9 +16,8 @@ namespace sepia
             static void init();
             static void destroy();
             static void rawSend( const std::string& a_name, const unsigned char* a_msg, size_t a_msgSize );
-
-        private:
             MessageSender() = delete;
+        private:
             // static zmq::context_t sm_context;
             static thread_local zmq::socket_t stm_externalSocket;
         };

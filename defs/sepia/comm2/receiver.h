@@ -28,6 +28,10 @@ namespace sepia::comm2
         bool removeObserver( ObserverAll* a_observer );
         int getSocketFileDescriptor();
         bool getHaveMessagesAvailable();
+        Receiver( const Receiver& ) = delete;
+        Receiver( const Receiver&& ) = delete;
+        Receiver& operator=( const Receiver& ) = delete;
+        Receiver&& operator=( const Receiver&& ) = delete;
 
     protected:
         bool distribute( const std::string& a_name, const char* a_data, size_t a_size );
@@ -35,7 +39,6 @@ namespace sepia::comm2
         bool removeObserver( const std::string& a_name, ObserverBase* a_observer );
 
     private:
-        Receiver( const Receiver& ) = delete;
         typedef std::map< const std::string, std::unordered_set< ObserverBase* > > ObserverMap;
         ObserverMap m_observers;
         std::unique_ptr< zmq::socket_t > m_socket{ nullptr };
