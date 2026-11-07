@@ -18,6 +18,8 @@ find_package(FlatBuffers REQUIRED)
 
 find_package(cppzmq REQUIRED)
 find_package(yaml-cpp REQUIRED)
+set(PYBIND11_FINDPYTHON ON)
+find_package(pybind11 CONFIG REQUIRED)
 set( PUBLIC_INCLUDES
     ${CMAKE_SOURCE_DIR}/defs/sepia/comm2/receiver.h
     ${CMAKE_SOURCE_DIR}/defs/sepia/comm2/dispatcher.h
@@ -40,11 +42,12 @@ target_sources( ${PROJECT_NAME} PRIVATE
 include_directories(defs)
 install( FILES ${PUBLIC_INCLUDES} DESTINATION include/sepia/comm2 )
 
-target_link_libraries(${PROJECT_NAME} ${PROTOBUF_LIBRARIES})
-target_link_libraries( ${PROJECT_NAME} ${cppzmq_LIBRARY} ${ZeroMQ_LIBRARIES} )
-target_link_libraries( ${PROJECT_NAME} ${FLATBUFFERS_LIBRARIES})
-target_link_libraries( ${PROJECT_NAME} yaml-cpp )
-target_link_libraries( ${PROJECT_NAME} -lrt )
+target_link_libraries( ${PROJECT_NAME} PUBLIC yaml-cpp )
+target_link_libraries( ${PROJECT_NAME} PRIVATE ${PROTOBUF_LIBRARIES} ${cppzmq_LIBRARY} ${ZeroMQ_LIBRARIES} ${FLATBUFFERS_LIBRARIES} -lrt )
+
+pybind11_add_module( sepia_comm MODULE python/pysepia.cpp )
+target_link_libraries( sepia_comm PRIVATE ${PROJECT_NAME} )
+target_include_directories( sepia_comm PRIVATE defs )
 
 add_subdirectory(examples)
 add_subdirectory(router)
